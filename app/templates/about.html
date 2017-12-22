@@ -12,20 +12,38 @@
    This will keep scripts at the page end and a navbar you add on later
    intact. #}
 {% block content %}
-  <div class="container">
-  {%- with messages = get_flashed_messages(with_categories=True) %}
-  {%- if messages %}
-    <div class="row">
-      <div class="col-md-12">
-        {{utils.flashed_messages(messages)}}
-      </div>
-    </div>
-  {%- endif %}
-  {%- endwith %}
-    <div class="jumbotron">
-      <h1>Welcome to BeerWell!</h1>
-      <p>Find your next beer</p>
-    </div>
-   </div>
+  <div class="jumbotron">
+    <h3>Overview</h3>
+      I am a data scientist and beer nerd and figured it would be fun
+      to combine these two passions.
+      Thank all other beer enthusiasts out there who post their descriptions
+      of beer and BeerAdvocate. Use all of this effort to help people find
+      better beers.
+      Data Science: Word embedding algorithms (TF-IDF, Word2vec), clustering
+      Data Visualization:
+      Tech Stack Used Here: Flask, Bootstrap, MYSQL, AWS (elasticbeanstalk, DB)
+      All of this can be found on github here:
+  </div>
+
+  <div class="jumbotron">
+    <h3>Beer Vectors</h3>
+      Second step in text analysis (after getting the text to analyze) is
+      to represent numberically.
+      ... everything else influenced by this. I am interested in how final
+      analysis is influenced by decisions made here.
+      TF-IDF:
+      Word2Vec:
+      Others:
+  </div>
+
+  <div class="jumbotron">
+    <h3>Map</h3>
+      Beer clustered in a variety of ways. Visualized here.
+  </div>
+
+  <div class="jumbotron">
+    <h3>Explore</h3>
+      Information about individual beers.
+  </div>
 
 {%- endblock %}

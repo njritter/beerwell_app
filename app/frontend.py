@@ -9,14 +9,14 @@ from flask import Blueprint, render_template, flash, redirect, url_for
 from flask_bootstrap import __version__ as FLASK_BOOTSTRAP_VERSION
 from flask_nav.elements import Navbar, View, Subgroup, Link, Text, Separator
 from markupsafe import escape
+import pandas as pd
+import dill
 
 from .nav import nav
 
 frontend = Blueprint('frontend', __name__)
 
-# We're adding a navbar as well through flask-navbar. In our example, the
-# navbar has an usual amount of Link-Elements, more commonly you will have a
-# lot more View instances.
+# We're adding a navbar as well through flask-navbar.
 nav.register_element('frontend_top', Navbar(
     View('BeerWell', '.home'),
     View('Home', '.home'),
@@ -25,8 +25,7 @@ nav.register_element('frontend_top', Navbar(
     View('About', '.about') ))
 
 
-# Our index-page just shows a quick explanation. Check out the template
-# "templates/index.html" documentation for more details.
+# Pages
 @frontend.route('/')
 def index():
     return render_template('home.html')
@@ -39,11 +38,17 @@ def home():
 def map():
     return render_template('map.html')
 
-@frontend.route('/explore')
-def explore():
-    return render_template('explore.html')
+@frontend.route('/explore/')
+@frontend.route('/explore/<ind>')
+def explore(ind=0):
+    beerPanda = pd.read_pickle('/Users/Drazi/beerwell_app/app/data/beerpanda.pkd')
+    all_beers = zip(list(range(250)), beerPanda.Name.tolist()) # index attached
+    beer_stats = beerPanda.iloc[int(ind)].tolist() # row from beerPanda
+    return render_template('explore.html',
+                            all_beers=all_beers,
+                            beer='wordclouds/Beer_' + str(ind),
+                            beer_stats=beer_stats)
 
-# About page
 @frontend.route('/about/')
 def about():
     return render_template('about.html')

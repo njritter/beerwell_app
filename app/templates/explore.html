@@ -12,24 +12,32 @@
    This will keep scripts at the page end and a navbar you add on later
    intact. #}
 {% block content %}
-  <div class="container">
-  {%- with messages = get_flashed_messages(with_categories=True) %}
-  {%- if messages %}
+
+  <div class="container-fluid">
     <div class="row">
-      <div class="col-md-12">
-        {{utils.flashed_messages(messages)}}
+      <div class="jumbotron">
+        <h3>Beer Explorer</h3>
+        Look through top 250 Beer Advocate beers!
       </div>
     </div>
-  {%- endif %}
-  {%- endwith %}
-    <div class="jumbotron">
-      <h1>Welcome to BeerWell!</h1>
-      <p>Find your next beer</p>
+    <div class="row">
+      <div class="col-sm-4 col-md-4 col-lg-4" style="background-color:white;">
+        <div class="list-group list-group-flush scrolly">
+          {% for i,b in all_beers %}
+          <a href={{ i }} class="list-group-item list-group-item-action">{{ b }}</a>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="col-sm-8 col-md-8 col-lg-8" style="background-color:white;">
+        <img src="{{url_for('static', filename = beer + '.png')}}" class="img-rounded"/>
+        <br>
+        {{ beer_stats[0] }}
+        <br>
+        {{ beer_stats[1] }}
+        <br>
+        {{ beer_stats[2] }}
+      </div>
     </div>
-   </div>
-
-   <body>
-     <img src="{{url_for('static', filename='test.png')}}" />
-   </body>
+  </div>
 
 {%- endblock %}
